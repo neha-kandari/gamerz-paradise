@@ -175,7 +175,7 @@ export default function App() {
       {/* ── NAV ─────────────────────────────── */}
       <nav style={{
         position:'fixed', top:0, left:0, right:0, zIndex:100,
-        padding:'0 var(--pad)',
+        padding:'12px var(--pad) 0',
         background:'rgba(20,20,20,.45)',
         backdropFilter:'blur(16px) saturate(160%)',
         WebkitBackdropFilter:'blur(16px) saturate(160%)',
@@ -201,7 +201,7 @@ export default function App() {
       </nav>
 
       {/* ── HERO ─────────────────────────────── */}
-      <section style={{ position:'relative', height:'80vh', minHeight:500, overflow:'hidden', paddingTop:68, boxSizing:'border-box' }}>
+      <section style={{ position:'relative', height:'80vh', minHeight:500, overflow:'hidden', paddingTop:80, boxSizing:'border-box' }}>
         <div style={{ position:'absolute', inset:0, background:'#181818' }}>
           <video ref={setVideoRef} src={heroVideo} autoPlay muted loop playsInline
             onCanPlay={() => setHeroReady(true)}
