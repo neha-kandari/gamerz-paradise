@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
+import logo from './imports/gamerz_paradise_logo.png'
+import heroVideo from './imports/gaming.mp4'
 
 const IMG = {
   vr:      'https://images.unsplash.com/photo-1593508512255-86ab42a8e620?w=900&h=600&fit=crop&auto=format',
@@ -180,7 +182,7 @@ export default function App() {
         borderBottom:'1px solid rgba(255,255,255,.08)',
       }}>
         <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', height:68 }}>
-          <img src="/src/imports/gamerz_paradise_logo.png" alt="Gamerz Paradise" style={{ height:72, width:'auto', mixBlendMode:'screen', objectFit:'contain' }} />
+          <img src={logo} alt="Gamerz Paradise" style={{ height:72, width:'auto', mixBlendMode:'screen', objectFit:'contain' }} />
           <div style={{ display:'flex', gap:28 }} id="nav-desktop">
             {navLinks.map(l => (
               <a key={l} href={`#${l.toLowerCase()}`} className="nav-link">{l}</a>
@@ -201,7 +203,7 @@ export default function App() {
       {/* ── HERO ─────────────────────────────── */}
       <section style={{ position:'relative', height:'80vh', minHeight:500, overflow:'hidden', paddingTop:68, boxSizing:'border-box' }}>
         <div style={{ position:'absolute', inset:0, background:'#181818' }}>
-          <video ref={setVideoRef} src="/src/imports/gaming.mp4" autoPlay muted loop playsInline
+          <video ref={setVideoRef} src={heroVideo} autoPlay muted loop playsInline
             onCanPlay={() => setHeroReady(true)}
             style={{ width:'100%', height:'100%', objectFit:'cover', opacity: heroReady ? 0.55 : 0, transition:'opacity 1.2s ease' }}
           />
@@ -1000,7 +1002,7 @@ export default function App() {
       <footer style={{ background:'#181818', borderTop:'1px solid var(--border)', padding:'52px var(--pad) 32px' }}>
         <div className="footer-grid" style={{ display:'grid', gridTemplateColumns:'1.4fr repeat(3,1fr)', gap:'clamp(24px,4vw,40px)', marginBottom:44 }}>
           <div style={{ gridColumn:'span 1' }}>
-            <img src="/src/imports/gamerz_paradise_logo.png" alt="Gamerz Paradise" style={{ height:50, width:'auto', mixBlendMode:'screen', marginBottom:10 }} />
+            <img src={logo} alt="Gamerz Paradise" style={{ height:50, width:'auto', mixBlendMode:'screen', marginBottom:10 }} />
             <p style={{ color:'var(--muted-fg)', fontSize:'.83rem', lineHeight:1.7, fontWeight:300 }}>
               Bangalore's premier gaming paradise. Experience the future of play.
             </p>
