@@ -1,0 +1,10 @@
+{
+  "description": "Discover an immersive gaming experience with a curated selection of games, events, and a vibrant venue, designed for gamers seeking fun and excitement.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
