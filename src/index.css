@@ -222,6 +222,16 @@ body { background:var(--bg); color:var(--fg); font-family:'Barlow',sans-serif; o
 }
 .exp-card:hover { border-color:rgba(192,21,42,.5); box-shadow:0 0 0 1px rgba(192,21,42,.3),0 20px 60px rgba(0,0,0,.5); }
 
+/* ── How it works ───────────────────────── */
+.howit-item { position:relative; width:280px; transition:transform .3s ease; }
+.howit-item:hover { transform:translateY(-6px) !important; }
+.howit-item-down { margin-top:56px; }
+@media (max-width: 900px) {
+  .howit-grid { flex-direction:column !important; align-items:center; }
+  .howit-item-down { margin-top:0; }
+  .howit-connector { display:none; }
+}
+
 /* ── Review card ────────────────────────── */
 .review-card { background:var(--card); border:1px solid var(--border-soft); transition:all .3s ease; position:relative; overflow:hidden; }
 .review-card:hover { border-color:rgba(192,21,42,.35); transform:translateY(-4px); }
@@ -256,24 +266,6 @@ body { background:var(--bg); color:var(--fg); font-family:'Barlow',sans-serif; o
   opacity:0; transform:scale(.6); transition:all .3s ease;
 }
 .gallery-item:hover .gallery-count { opacity:1; transform:scale(1); }
-
-/* ── Mobile menu ────────────────────────── */
-.mobile-menu {
-  position:fixed; inset:0; z-index:200;
-  background:rgba(18,18,18,.98);
-  backdrop-filter:blur(24px);
-  display:flex; flex-direction:column;
-  align-items:center; justify-content:center; gap:32px;
-  transition:all .3s ease;
-}
-.mobile-menu a {
-  font-family:'Barlow Condensed',sans-serif;
-  font-weight:800; font-size:2.2rem;
-  letter-spacing:.08em; text-transform:uppercase;
-  color:var(--fg); text-decoration:none;
-  transition:color .2s;
-}
-.mobile-menu a:hover { color:var(--primary); }
 
 /* ── Responsive ─────────────────────────── */
 @media (max-width: 1024px) {

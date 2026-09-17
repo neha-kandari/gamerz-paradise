@@ -121,15 +121,23 @@ const faqs = [
 
 const navLinks = ['Games', 'Experiences', 'About']
 
+const CONTACT = {
+  phoneDisplay: '816 819 1505',
+  telUrl: 'tel:+918168191505',
+  whatsappUrl: 'https://wa.me/918168191505',
+  address: 'DSS No. 8 First Floor, 13/17, Market, near Dyal Singh Public School, Sector 13-17, HUDA, Panipat, Haryana 132103',
+  mapsUrl: 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('DSS No. 8 First Floor, 13/17, Market, near Dyal Singh Public School, Sector 13-17, HUDA, Panipat, Haryana 132103'),
+  instagramUrl: 'https://www.instagram.com/the_gamerz_paradise/',
+}
+
 /* ═══════════════════════════════════════════
    APP
 ═══════════════════════════════════════════ */
 export default function App() {
   const [activeZone, setActiveZone] = useState(0)
-  const [activeExp,  setActiveExp]  = useState<Experience>('all')
+  const [activeExp,  setActiveExp]  = useState<Experience>('solo')
   const [heroReady,  setHeroReady]  = useState(false)
   const [panelKey,   setPanelKey]   = useState(0)
-  const [menuOpen,   setMenuOpen]   = useState(false)
   const [openFaq,    setOpenFaq]    = useState<number | null>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
 
@@ -141,11 +149,6 @@ export default function App() {
     }
     (videoRef as React.MutableRefObject<HTMLVideoElement | null>).current = el
   }
-
-  useEffect(() => {
-    document.body.style.overflow = menuOpen ? 'hidden' : ''
-    return () => { document.body.style.overflow = '' }
-  }, [menuOpen])
 
   function selectZone(i: number) {
     if (i === activeZone) return
@@ -160,17 +163,6 @@ export default function App() {
 
   return (
     <div style={{ background:'var(--bg)', color:'var(--fg)', minHeight:'100vh' }}>
-
-      {/* ── MOBILE MENU ─────────────────────── */}
-      {menuOpen && (
-        <div className="mobile-menu">
-          <button onClick={() => setMenuOpen(false)} style={{ position:'absolute', top:24, right:'5vw', background:'none', border:'none', color:'var(--fg)', cursor:'pointer', fontSize:'1.5rem', lineHeight:1 }}>✕</button>
-          {navLinks.map(l => (
-            <a key={l} href={`#${l.toLowerCase()}`} onClick={() => setMenuOpen(false)}>{l}</a>
-          ))}
-          <button className="btn-primary" style={{ marginTop:16 }} onClick={() => setMenuOpen(false)}>Book Now</button>
-        </div>
-      )}
 
       {/* ── NAV ─────────────────────────────── */}
       <nav style={{
@@ -189,13 +181,9 @@ export default function App() {
             ))}
           </div>
           <div style={{ display:'flex', gap:12, alignItems:'center' }}>
-            <button className="btn-primary" style={{ padding:'9px 20px', fontSize:'.76rem' }}>Book Now</button>
-            <button onClick={() => setMenuOpen(true)} id="hamburger"
-              style={{ display:'none', background:'none', border:'1px solid rgba(255,255,255,.15)', borderRadius:4, padding:'7px 10px', cursor:'pointer', color:'var(--fg)' }}>
-              <svg width="18" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" viewBox="0 0 18 14">
-                <line x1="0" y1="1" x2="18" y2="1"/><line x1="0" y1="7" x2="18" y2="7"/><line x1="0" y1="13" x2="18" y2="13"/>
-              </svg>
-            </button>
+            <a href={CONTACT.whatsappUrl} target="_blank" rel="noopener noreferrer">
+              <button className="btn-primary" style={{ padding:'9px 20px', fontSize:'.76rem' }}>Contact Now</button>
+            </a>
           </div>
         </div>
       </nav>
@@ -222,8 +210,7 @@ export default function App() {
             VR · PC Gaming · Racing Sim · Console · Esports — all under one roof.
           </p>
           <div className="cta-row" style={{ display:'flex', gap:12, flexWrap:'wrap', opacity: heroReady ? 1 : 0, transition:'all .85s ease .62s' }}>
-            <a href="#games"><button className="btn-primary">Explore Games</button></a>
-            <button className="btn-ghost">Book a Session</button>
+            <a href={CONTACT.whatsappUrl} target="_blank" rel="noopener noreferrer"><button className="btn-primary">Contact Now</button></a>
           </div>
           <div style={{ display:'flex', gap:7, marginTop:32, flexWrap:'wrap', opacity: heroReady ? 1 : 0, transition:'all .85s ease .76s' }}>
             {[
@@ -248,18 +235,11 @@ export default function App() {
       {/* ── GAME CATEGORIES BENTO ────────────── */}
       <section style={{ padding:'72px 0 56px' }}>
         <R>
-          <div style={{ display:'flex', alignItems:'flex-end', justifyContent:'space-between', marginBottom:28, flexWrap:'wrap', gap:14, padding:'0 var(--pad)' }}>
-            <div>
-              <p className="tag-label" style={{ marginBottom:10 }}>What's Inside</p>
-              <h2 className="section-title" style={{ fontSize:'clamp(1.9rem,4.5vw,3.6rem)', color:'var(--fg)' }}>
-                GAME <span style={{ color:'var(--primary)' }}>CATEGORIES</span>
-              </h2>
-            </div>
-            <div style={{ display:'flex', gap:8 }}>
-              {['‹','›'].map((ch, i) => (
-                <button key={i} className="font-display" style={{ width:36, height:36, borderRadius:3, background: i===1 ? 'var(--primary)' : '#252525', border:`1px solid ${i===1 ? 'var(--primary)' : 'rgba(255,255,255,.08)'}`, color:'#fff', cursor:'pointer', fontSize:'1.05rem', display:'flex', alignItems:'center', justifyContent:'center', transition:'all .2s' }}>{ch}</button>
-              ))}
-            </div>
+          <div style={{ marginBottom:28, padding:'0 var(--pad)' }}>
+            <p className="tag-label" style={{ marginBottom:10 }}>What's Inside</p>
+            <h2 className="section-title" style={{ fontSize:'clamp(1.9rem,4.5vw,3.6rem)', color:'var(--fg)' }}>
+              GAME <span style={{ color:'var(--primary)' }}>CATEGORIES</span>
+            </h2>
           </div>
         </R>
 
@@ -655,32 +635,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* ── CINEMATIC VENUE ─────────────────── */}
-      <section style={{ position:'relative', height:'clamp(360px,65vh,520px)', overflow:'hidden', display:'flex', alignItems:'center' }}>
-        <img src={IMG.venue} alt="Venue" style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', opacity:.38 }} />
-        <div style={{ position:'absolute', inset:0, background:'linear-gradient(135deg,rgba(5,5,5,.95) 30%,rgba(192,21,42,.1) 65%,rgba(5,5,5,.85) 100%)' }} />
-        <div className="grid-bg" style={{ position:'absolute', inset:0 }} />
-        <div style={{ position:'relative', zIndex:2, padding:'0 var(--pad)', maxWidth:780 }}>
-          <R>
-            <p className="tag-label" style={{ marginBottom:16 }}>The Venue</p>
-            <h2 className="section-title" style={{ fontSize:'clamp(2.4rem,7vw,6rem)', color:'#fff', marginBottom:20 }}>
-              THE<br /><span style={{ color:'var(--primary)' }}>GAMING<br />ZONE</span>
-            </h2>
-            <p style={{ fontSize:'.95rem', fontWeight:300, color:'rgba(240,240,240,.62)', maxWidth:460, lineHeight:1.7, marginBottom:32 }}>
-              20,000 sq. ft. of pure gaming paradise — championship rigs, VR suites, pro racing cockpits.
-            </p>
-            <div style={{ display:'flex', gap:36, flexWrap:'wrap', columnGap:36, rowGap:20 }}>
-              {[['50+','Stations'],['5','Zones'],['4K','Displays'],['24/7','Open']].map(([v, l]) => (
-                <div key={l}>
-                  <div className="font-display" style={{ fontWeight:900, fontSize:'clamp(1.8rem,3vw,2.5rem)', color:'var(--primary)', lineHeight:1 }}>{v}</div>
-                  <div className="font-heading" style={{ fontSize:'.65rem', fontWeight:600, letterSpacing:'.15em', textTransform:'uppercase', color:'rgba(240,240,240,.38)', marginTop:4 }}>{l}</div>
-                </div>
-              ))}
-            </div>
-          </R>
-        </div>
-      </section>
-
       {/* ── HOW IT WORKS ────────────────────── */}
       <section className="section-pad" style={{ padding:'100px var(--pad)', background:'#141414', position:'relative', overflow:'hidden' }}>
         {/* Background decorations */}
@@ -688,7 +642,7 @@ export default function App() {
         <div className="grid-bg" style={{ position:'absolute', inset:0 }} />
 
         <R>
-          <div style={{ textAlign:'center', marginBottom:72 }}>
+          <div style={{ textAlign:'center', marginBottom:80 }}>
             <p className="tag-label" style={{ justifyContent:'center', marginBottom:14 }}>Simple Process</p>
             <h2 className="section-title" style={{ fontSize:'clamp(2.2rem,5vw,4.4rem)', color:'var(--fg)' }}>
               HOW IT <span style={{ color:'var(--primary)' }}>WORKS</span>
@@ -696,58 +650,59 @@ export default function App() {
           </div>
         </R>
 
-        {/* Timeline layout */}
-        <div style={{ position:'relative', maxWidth:960, margin:'0 auto' }}>
-          {/* Horizontal connector line (desktop) */}
-          <div style={{ position:'absolute', top:52, left:'calc(16.66% + 20px)', right:'calc(16.66% + 20px)', height:1, background:'linear-gradient(to right,transparent,rgba(192,21,42,.4) 20%,rgba(192,21,42,.4) 80%,transparent)', pointerEvents:'none' }} />
-
-          <div style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:0 }}>
-            {howItWorks.map((s, i) => (
-              <R key={s.step} delay={i * 130}>
-                <div style={{ display:'flex', flexDirection:'column', alignItems:'center', padding:'0 clamp(12px,4%,40px)', textAlign:'center', position:'relative' }}>
-                  {/* Step badge */}
-                  <div style={{ position:'relative', marginBottom:32, zIndex:1 }}>
+        {/* Staggered step cards */}
+        <div className="howit-grid" style={{ position:'relative', maxWidth:1100, margin:'0 auto', display:'flex', gap:28, justifyContent:'center', flexWrap:'wrap' }}>
+          {howItWorks.map((s, i) => {
+            const isLast = i === howItWorks.length - 1
+            const gradients: [string, string][] = [['#7a0f1f', '#c0152a'], ['#c0152a', '#e0182c'], ['#e0182c', '#f59e0b']]
+            const [c1, c2] = gradients[i] ?? gradients[gradients.length - 1]
+            const stepLabels = ['Step One', 'Step Two', 'Step Three']
+            return (
+              <R key={s.step} delay={i * 130} className={`howit-item${i % 2 === 1 ? ' howit-item-down' : ''}`}>
+                {!isLast && (
+                  <div className="howit-connector" style={{
+                    position:'absolute', top:46, left:'100%', width:38, borderTop:`2px dashed ${c2}77`,
+                    transform: i % 2 === 0 ? 'rotate(22deg)' : 'rotate(-22deg)', transformOrigin:'left center',
+                  }} />
+                )}
+                <div style={{
+                  background:'#1b1b1b', border:'1px solid rgba(255,255,255,.08)', borderRadius:16,
+                  padding:'26px 24px 24px', position:'relative', overflow:'hidden',
+                  boxShadow:'0 20px 44px rgba(0,0,0,.4)',
+                }}>
+                  <div style={{ display:'flex', alignItems:'flex-start', justifyContent:'space-between', marginBottom:20 }}>
                     <div style={{
-                      width:104, height:104, borderRadius:4,
-                      background:'linear-gradient(135deg,rgba(192,21,42,.18) 0%,rgba(192,21,42,.06) 100%)',
-                      border:'1px solid rgba(192,21,42,.35)',
-                      display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center',
-                      position:'relative', overflow:'hidden',
-                      transition:'all .35s ease',
-                    }}
-                      onMouseEnter={e => { const el = e.currentTarget as HTMLDivElement; el.style.background='linear-gradient(135deg,rgba(192,21,42,.35) 0%,rgba(192,21,42,.12) 100%)'; el.style.borderColor='var(--primary)'; el.style.transform='translateY(-4px)' }}
-                      onMouseLeave={e => { const el = e.currentTarget as HTMLDivElement; el.style.background='linear-gradient(135deg,rgba(192,21,42,.18) 0%,rgba(192,21,42,.06) 100%)'; el.style.borderColor='rgba(192,21,42,.35)'; el.style.transform='none' }}
-                    >
-                      {/* Corner cut */}
-                      <div style={{ position:'absolute', top:0, right:0, width:0, height:0, borderStyle:'solid', borderWidth:'0 20px 20px 0', borderColor:`transparent rgba(192,21,42,.5) transparent transparent` }} />
-                      <span className="font-display" style={{ fontWeight:900, fontSize:'2.2rem', color:'var(--primary)', lineHeight:1 }}>{s.step}</span>
-                      <div style={{ width:22, height:1, background:'rgba(192,21,42,.5)', marginTop:6 }} />
+                      width:52, height:52, borderRadius:14, flexShrink:0,
+                      background:`linear-gradient(135deg, ${c1}, ${c2})`,
+                      display:'flex', alignItems:'center', justifyContent:'center', color:'#fff',
+                      boxShadow:`0 10px 22px ${c2}4d`,
+                    }}>
+                      {i === 0
+                        ? <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M2 8h20v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8z"/><path d="M7 12h.01M17 12h.01"/></svg>
+                        : i === 1
+                        ? <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                        : <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                      }
                     </div>
-                    {/* Pulsing ring */}
-                    <div style={{ position:'absolute', inset:-10, borderRadius:6, border:'1px solid rgba(192,21,42,.15)', animation:`pulse-ring 3s ease-out ${i * 500}ms infinite`, pointerEvents:'none' }} />
+                    <span className="font-display" style={{ fontWeight:900, fontSize:'3rem', color:'rgba(255,255,255,.05)', lineHeight:1, userSelect:'none' }}>{s.step}</span>
                   </div>
-
-                  {/* Icon */}
-                  <div style={{ marginBottom:16, color:'var(--primary)', opacity:.7 }}>
-                    {i === 0
-                      ? <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M2 8h20v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8z"/><path d="M7 12h.01M17 12h.01"/></svg>
-                      : i === 1
-                      ? <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-                      : <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                    }
-                  </div>
-
-                  <h3 className="font-heading" style={{ fontWeight:700, fontSize:'1.25rem', letterSpacing:'.06em', textTransform:'uppercase', marginBottom:12, color:'var(--fg)' }}>{s.title}</h3>
-                  <p style={{ color:'var(--muted-fg)', fontSize:'.875rem', lineHeight:1.75, fontWeight:300, maxWidth:220 }}>{s.desc}</p>
+                  <p className="font-heading" style={{ fontSize:'.66rem', fontWeight:700, letterSpacing:'.18em', textTransform:'uppercase', color:c2, marginBottom:10 }}>{stepLabels[i]}</p>
+                  <h3 style={{ fontFamily:'Barlow Condensed,sans-serif', fontWeight:800, fontSize:'1.3rem', color:'#fff', marginBottom:10, letterSpacing:'.01em' }}>{s.title}</h3>
+                  <p style={{ color:'rgba(255,255,255,.5)', fontSize:'.85rem', lineHeight:1.7, fontWeight:300 }}>{s.desc}</p>
+                </div>
+                <div style={{ display:'flex', justifyContent:'center', marginTop:22 }}>
+                  <div style={{ width:14, height:14, borderRadius:'50%', border:`2px solid ${c2}` }} />
                 </div>
               </R>
-            ))}
-          </div>
+            )
+          })}
         </div>
 
         <R delay={220}>
           <div style={{ textAlign:'center', marginTop:60 }}>
-            <button className="btn-primary" style={{ fontSize:'.86rem', padding:'14px 42px' }}>Book Your Session</button>
+            <a href={CONTACT.whatsappUrl} target="_blank" rel="noopener noreferrer">
+              <button className="btn-primary" style={{ fontSize:'.86rem', padding:'14px 42px' }}>Book Your Session</button>
+            </a>
           </div>
         </R>
       </section>
@@ -885,147 +840,129 @@ export default function App() {
               )
             })}
           </div>
-
-          <R delay={160}>
-            <div style={{ marginTop:40, textAlign:'center', padding:'28px 32px', background:'rgba(192,21,42,.05)', border:'1px solid rgba(192,21,42,.15)' }}>
-              <span style={{ color:'var(--muted-fg)', fontSize:'.88rem', fontWeight:300 }}>
-                Still have questions?{' '}
-              </span>
-              <a href="#about" style={{ color:'var(--primary)', fontWeight:600, fontSize:'.88rem', textDecoration:'none' }}>
-                Contact us directly →
-              </a>
-            </div>
-          </R>
         </div>
       </section>
 
       {/* ══════════════════════════════════════
-          CONTACT US — redesigned
+          VENUE + CONTACT — combined
       ══════════════════════════════════════ */}
       <section id="about" style={{ position:'relative', overflow:'hidden' }}>
         {/* Full-bleed background image with overlay */}
-        <img src={IMG.venue} alt="" style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', opacity:.12 }} />
-        <div style={{ position:'absolute', inset:0, background:'linear-gradient(160deg,rgba(10,0,0,.97) 0%,rgba(18,18,18,.92) 50%,rgba(10,0,4,.97) 100%)' }} />
-        <div className="grid-bg" style={{ position:'absolute', inset:0, opacity:.6 }} />
-        {/* Glowing orb top-right */}
-        <div style={{ position:'absolute', top:-180, right:-180, width:600, height:600, borderRadius:'50%', background:'radial-gradient(circle,rgba(192,21,42,.18) 0%,transparent 65%)', pointerEvents:'none' }} />
-        <div style={{ position:'absolute', bottom:-120, left:-80, width:380, height:380, borderRadius:'50%', background:'radial-gradient(circle,rgba(124,58,237,.1) 0%,transparent 65%)', pointerEvents:'none' }} />
+        <img src={IMG.venue} alt="Venue" style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', opacity:.14 }} />
+        <div style={{ position:'absolute', inset:0, background:'linear-gradient(180deg,rgba(8,8,8,.97) 0%,rgba(14,10,10,.94) 100%)' }} />
+        {/* Glow */}
+        <div style={{ position:'absolute', top:-220, left:'50%', transform:'translateX(-50%)', width:700, height:500, borderRadius:'50%', background:'radial-gradient(circle,rgba(192,21,42,.16) 0%,transparent 68%)', pointerEvents:'none' }} />
 
-        <div style={{ position:'relative', zIndex:1, padding:'100px var(--pad)' }}>
-          {/* Top row: heading + rating pill */}
+        <div style={{ position:'relative', zIndex:1, padding:'96px var(--pad) 100px' }}>
+          {/* Heading + description */}
           <R>
-            <div style={{ display:'flex', alignItems:'flex-start', justifyContent:'space-between', flexWrap:'wrap', gap:24, marginBottom:64 }}>
-              <div>
-                <p className="tag-label" style={{ marginBottom:16 }}>Get In Touch</p>
-                <h2 className="section-title" style={{ fontSize:'clamp(2.8rem,7vw,6.5rem)', color:'#fff', lineHeight:.92 }}>
-                  LET'S<br /><span style={{ color:'var(--primary)' }}>PLAY.</span>
-                </h2>
-              </div>
-              {/* Rating pill */}
-              <div style={{ background:'rgba(192,21,42,.12)', border:'1px solid rgba(192,21,42,.3)', padding:'18px 24px', backdropFilter:'blur(12px)', minWidth:160 }}>
-                <div style={{ display:'flex', gap:2, marginBottom:6 }}>
-                  {[...Array(5)].map((_, j) => <span key={j} style={{ color:'#f59e0b', fontSize:'1rem' }}>★</span>)}
-                </div>
-                <div className="font-display" style={{ fontWeight:900, fontSize:'2.4rem', color:'#fff', lineHeight:1 }}>4.9</div>
-                <div style={{ color:'var(--muted-fg)', fontSize:'.75rem', marginTop:3 }}>380+ Reviews</div>
-              </div>
+            <div style={{ maxWidth:600, margin:'0 auto 56px', textAlign:'center' }}>
+              <p className="tag-label" style={{ justifyContent:'center', marginBottom:16 }}>The Venue · Get In Touch</p>
+              <h2 className="section-title" style={{ fontSize:'clamp(2.4rem,5.5vw,4.6rem)', color:'#fff', lineHeight:1, marginBottom:20 }}>
+                THE GAMING ZONE.<br /><span style={{ color:'var(--primary)' }}>LET'S PLAY.</span>
+              </h2>
+              <p style={{ fontSize:'.95rem', fontWeight:300, color:'rgba(240,240,240,.6)', lineHeight:1.75, margin:'0 auto 28px' }}>
+                20,000 sq. ft. of pure gaming paradise — championship rigs, VR suites, pro racing cockpits. Walk in anytime, or reach out below.
+              </p>
+              <div style={{ width:44, height:2, background:'var(--primary)', margin:'0 auto' }} />
             </div>
           </R>
 
           {/* Info cards row */}
-          <div className="contact-cards" style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:2, marginBottom:2 }}>
+          <div className="contact-cards" style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:16, maxWidth:980, margin:'0 auto' }}>
             {[
               {
                 icon: <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>,
                 label:'Find Us',
-                val:'3rd Floor, GameHub Mall',
-                sub:'MG Road, Bangalore – 560001',
+                val:'DSS No. 8, First Floor, 13/17',
+                sub:CONTACT.address,
                 accent:'#c0152a',
+                href:CONTACT.mapsUrl,
               },
               {
                 icon: <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>,
                 label:'Open Hours',
-                val:'Mon–Thu  11AM – 11PM',
-                sub:'Fri–Sun  10AM – 1AM',
+                val:'Monday – Sunday',
+                sub:'10 AM – 9 PM',
                 accent:'#7c3aed',
               },
               {
                 icon: <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.06 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 17z"/></svg>,
                 label:'Call Us',
-                val:'+91 98765 43210',
+                val:CONTACT.phoneDisplay,
                 sub:'Available during open hours',
                 accent:'#0ea5e9',
+                href:CONTACT.telUrl,
               },
-            ].map((item, i) => (
+            ].map((item, i) => {
+              const Tag = item.href ? 'a' as const : 'div' as const
+              return (
               <R key={item.label} delay={i * 80}>
-                <div style={{
-                  background:'rgba(255,255,255,.03)', border:'1px solid rgba(255,255,255,.07)',
+                <Tag
+                  {...(item.href ? item.href.startsWith('tel:')
+                    ? { href: item.href }
+                    : { href: item.href, target:'_blank', rel:'noopener noreferrer' } : {})}
+                  style={{
+                  display:'flex', flexDirection:'column', height:'100%', boxSizing:'border-box',
+                  background:'rgba(255,255,255,.04)', border:'1px solid rgba(255,255,255,.08)', borderRadius:10,
+                  backdropFilter:'blur(10px)', WebkitBackdropFilter:'blur(10px)',
                   padding:'32px 28px', position:'relative', overflow:'hidden',
-                  transition:'all .3s ease', cursor:'default',
+                  transition:'all .3s ease', cursor: item.href ? 'pointer' : 'default', textDecoration:'none',
                 }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.background = 'rgba(255,255,255,.06)'; (e.currentTarget as HTMLDivElement).style.borderColor = `${item.accent}44` }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.background = 'rgba(255,255,255,.03)'; (e.currentTarget as HTMLDivElement).style.borderColor = 'rgba(255,255,255,.07)' }}
+                  onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = 'rgba(255,255,255,.07)'; el.style.borderColor = `${item.accent}55`; el.style.transform = 'translateY(-4px)'; el.style.boxShadow = `0 16px 32px rgba(0,0,0,.35), 0 0 0 1px ${item.accent}22` }}
+                  onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = 'rgba(255,255,255,.04)'; el.style.borderColor = 'rgba(255,255,255,.08)'; el.style.transform = 'none'; el.style.boxShadow = 'none' }}
                 >
                   <div style={{ position:'absolute', top:0, left:0, width:'100%', height:2, background:`linear-gradient(to right,${item.accent},transparent)` }} />
-                  <div style={{ width:44, height:44, borderRadius:4, background:`${item.accent}1a`, border:`1px solid ${item.accent}44`, display:'flex', alignItems:'center', justifyContent:'center', color:item.accent, marginBottom:20 }}>
+                  <div style={{ width:44, height:44, borderRadius:'50%', flexShrink:0, background:`${item.accent}1a`, border:`1px solid ${item.accent}44`, display:'flex', alignItems:'center', justifyContent:'center', color:item.accent, marginBottom:20 }}>
                     {item.icon}
                   </div>
-                  <p className="font-heading" style={{ fontSize:'.65rem', fontWeight:600, letterSpacing:'.18em', textTransform:'uppercase', color:item.accent, marginBottom:8 }}>{item.label}</p>
-                  <p className="font-heading" style={{ fontWeight:700, fontSize:'1.05rem', letterSpacing:'.03em', color:'#fff', marginBottom:4 }}>{item.val}</p>
-                  <p style={{ color:'var(--muted-fg)', fontSize:'.8rem', lineHeight:1.5 }}>{item.sub}</p>
-                </div>
+                  <p className="font-heading" style={{ fontSize:'.65rem', fontWeight:600, letterSpacing:'.18em', textTransform:'uppercase', color:item.accent, marginBottom:8, flexShrink:0 }}>{item.label}</p>
+                  <p className="font-heading" style={{ fontWeight:700, fontSize:'1.05rem', letterSpacing:'.03em', lineHeight:1.35, color:'#fff', marginBottom:8, minHeight:'2.7em', flexShrink:0 }}>{item.val}</p>
+                  <p style={{ color:'var(--muted-fg)', fontSize:'.8rem', lineHeight:1.5, marginTop:'auto' }}>{item.sub}</p>
+                </Tag>
               </R>
-            ))}
+              )
+            })}
           </div>
-
-          {/* Bottom CTA bar */}
-          <R delay={200}>
-            <div style={{ background:'rgba(192,21,42,.08)', border:'1px solid rgba(192,21,42,.2)', padding:'32px 36px', display:'flex', alignItems:'center', justifyContent:'space-between', flexWrap:'wrap', gap:24, marginTop:2 }}>
-              <div>
-                <p className="font-heading" style={{ fontWeight:700, fontSize:'1.35rem', letterSpacing:'.05em', textTransform:'uppercase', color:'#fff', marginBottom:4 }}>
-                  Ready for your first session?
-                </p>
-                <p style={{ color:'var(--muted-fg)', fontSize:'.85rem', fontWeight:300 }}>
-                  Walk in anytime or pre-book your slot to skip the wait.
-                </p>
-              </div>
-              <div style={{ display:'flex', gap:12, flexWrap:'wrap' }}>
-                <button className="btn-primary" style={{ fontSize:'.86rem', padding:'13px 34px' }}>Book Online</button>
-                <button className="btn-ghost" style={{ fontSize:'.86rem', padding:'12px 34px' }}>Get Directions</button>
-              </div>
-            </div>
-          </R>
         </div>
       </section>
 
       {/* ── FOOTER ──────────────────────────── */}
       <footer style={{ background:'#181818', borderTop:'1px solid var(--border)', padding:'52px var(--pad) 32px' }}>
-        <div className="footer-grid" style={{ display:'grid', gridTemplateColumns:'1.4fr repeat(3,1fr)', gap:'clamp(24px,4vw,40px)', marginBottom:44 }}>
-          <div style={{ gridColumn:'span 1' }}>
-            <img src={logo} alt="Gamerz Paradise" style={{ height:50, width:'auto', mixBlendMode:'screen', marginBottom:10 }} />
-            <p style={{ color:'var(--muted-fg)', fontSize:'.83rem', lineHeight:1.7, fontWeight:300 }}>
-              Bangalore's premier gaming paradise. Experience the future of play.
+        <div className="footer-grid" style={{ display:'grid', gridTemplateColumns:'1.3fr 1fr', gap:'clamp(24px,4vw,40px)', marginBottom:44 }}>
+          <div>
+            <h3 className="section-title" style={{ fontSize:'1.7rem', color:'#fff', marginBottom:12 }}>
+              GAMERZ <span style={{ color:'var(--primary)' }}>PARADISE</span>
+            </h3>
+            <p style={{ color:'var(--muted-fg)', fontSize:'.83rem', lineHeight:1.7, fontWeight:300, maxWidth:400, marginBottom:16 }}>
+              Panipat's premier gaming paradise — VR, PC, Racing, Console and Esports all under one roof.
             </p>
+            <a href={CONTACT.instagramUrl} target="_blank" rel="noopener noreferrer"
+              style={{ display:'inline-flex', alignItems:'center', gap:8, color:'var(--muted-fg)', fontSize:'.83rem', textDecoration:'none', transition:'color .2s' }}
+              onMouseEnter={e => (e.currentTarget.style.color='var(--primary)')}
+              onMouseLeave={e => (e.currentTarget.style.color='var(--muted-fg)')}
+            >
+              <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></svg>
+              Follow us on Instagram
+            </a>
           </div>
-          {[
-            { t:'Zones',  l:['VR Zone','PC Gaming','Racing Sim','Console','Esports'] },
-            { t:'Events', l:['Tournaments','Birthday Gaming','College Events','Corporate'] },
-            { t:'Info',   l:['About Us','Reviews','Contact','Book Now'] },
-          ].map(col => (
-            <div key={col.t}>
-              <h4 className="font-heading" style={{ fontWeight:700, fontSize:'.68rem', letterSpacing:'.2em', textTransform:'uppercase', color:'var(--fg)', marginBottom:14 }}>{col.t}</h4>
-              <ul style={{ listStyle:'none', padding:0, margin:0, display:'flex', flexDirection:'column', gap:9 }}>
-                {col.l.map(link => (
-                  <li key={link}>
-                    <a href="#" style={{ color:'var(--muted-fg)', fontSize:'.83rem', textDecoration:'none', transition:'color .2s' }}
-                      onMouseEnter={e => (e.currentTarget.style.color='var(--primary)')}
-                      onMouseLeave={e => (e.currentTarget.style.color='var(--muted-fg)')}
-                    >{link}</a>
-                  </li>
-                ))}
-              </ul>
+          <div>
+            <h4 className="font-heading" style={{ fontWeight:700, fontSize:'.68rem', letterSpacing:'.2em', textTransform:'uppercase', color:'var(--fg)', marginBottom:14 }}>Contact</h4>
+            <div style={{ display:'flex', flexDirection:'column', gap:11 }}>
+              <a href={CONTACT.whatsappUrl} target="_blank" rel="noopener noreferrer"
+                style={{ display:'flex', alignItems:'center', gap:9, color:'var(--muted-fg)', fontSize:'.83rem', textDecoration:'none', transition:'color .2s' }}
+                onMouseEnter={e => (e.currentTarget.style.color='var(--primary)')}
+                onMouseLeave={e => (e.currentTarget.style.color='var(--muted-fg)')}
+              >
+                <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24" style={{ flexShrink:0 }}><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.06 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 17z"/></svg>
+                {CONTACT.phoneDisplay}
+              </a>
+              <div style={{ display:'flex', alignItems:'flex-start', gap:9, color:'var(--muted-fg)', fontSize:'.83rem', lineHeight:1.6, maxWidth:280 }}>
+                <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24" style={{ flexShrink:0, marginTop:2 }}><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+                <span>{CONTACT.address}</span>
+              </div>
             </div>
-          ))}
+          </div>
         </div>
         <div style={{ borderTop:'1px solid var(--border)', paddingTop:20, display:'flex', alignItems:'center', justifyContent:'space-between', flexWrap:'wrap', gap:8 }}>
           <span style={{ color:'var(--muted-fg)', fontSize:'.76rem' }}>© 2026 Gamerz Paradise. All rights reserved.</span>
@@ -1040,7 +977,6 @@ export default function App() {
         }
         @media (max-width: 768px) {
           #nav-desktop { display: none !important; }
-          #hamburger   { display: flex !important; }
           .hero-subtext { white-space: normal !important; }
           .footer-grid { grid-template-columns: 1fr 1fr !important; }
           .location-grid { grid-template-columns: 1fr !important; }
